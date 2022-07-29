@@ -66,15 +66,6 @@ That makes calamity of so long life.`
     textarea.addEventListener('input', update_text, false);
     textarea.onchange = update_text;
 
-    var all_fonts = {
-        "roboto"        : roboto_font,
-        "roboto_bold"   : roboto_bold_font,        
-        "ubuntu"        : ubuntu_font,
-        "ubuntu_bold"   : ubuntu_bold_font,
-        "dejavu"        : dejavu_font,
-        "dejavu_italic" : dejavu_italic_font   
-    }
-
     var font = all_fonts[ fonts_select.value ];
 
     // GL stuff

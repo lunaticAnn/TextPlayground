@@ -20,7 +20,14 @@
  * SOFTWARE.
  *
  */
-
+var all_fonts = {
+    "roboto"        : roboto_font,
+    "roboto_bold"   : roboto_bold_font,        
+    "ubuntu"        : ubuntu_font,
+    "ubuntu_bold"   : ubuntu_bold_font,
+    "dejavu"        : dejavu_font,
+    "dejavu_italic" : dejavu_italic_font   
+}
 
 function fontMetrics( font, pixel_size, more_line_gap = 0.0 ) {
     // We use separate scale for the low case characters
@@ -142,3 +149,78 @@ function writeString( string, font, font_metrics, pos, vertex_array, str_pos = 0
     return res;
 }
 
+class Rect {
+    constructor(xmin, xmax, ymin, ymax)
+    {
+        this.xmin = xmin;
+        this.xmax = xmax;
+        this.ymin = ymin;
+        this.ymax = ymax;
+    }
+}
+
+class Glyph {
+    constructor(x0 /*bearing + ix + kerning*/, x1, y0, y1 /*iy*/, uv, xAdvance)
+    {
+        this.rect = new Rect(x0, x1, y0, y1);
+        this.uv = uv;
+        this.xAdvance = xAdvance;
+    }
+}
+
+class GlyphLine {
+    constructor(start, length, x, y, lineWidth)
+    {
+        this.start = start;
+        this.length = length;
+        this.x = x;
+        this.y = y;
+        this.lineWidth = lineWidth;
+    }
+}
+
+class TextSegment {
+    constructor(text, font, size)
+    {
+        this.text = text;
+        this.glyphs = [];
+        this.lines = [];
+        this.size = size;
+        this.font = font;
+    }
+
+    setText(text)
+    {
+        // dirty bits
+    }
+};
+
+class TextObject {
+    constructor(srcText)
+    {
+        this.srcText = srcText;
+        this.richText = false;
+        this.font = "roboto";
+        this.size = 10;
+        this.segments = [new TextSegment(srcText, size, font)];
+        this.rect = new Rect(100, 500, 0, 400);
+    }
+
+    shape()
+    {
+        // this use the generated matrics to generate a list of glyphs
+        // pre-calculates scaled bearing/kerning/x_advance(glyph rect width)
+        // this will be the final rectangle size that we draw on screen
+    }
+
+    layout()
+    {
+        //layout text with specific bounding rectangle size.
+        
+    }
+
+    render()
+    {
+        // going through all the lines and render glyphs.
+    }
+}
