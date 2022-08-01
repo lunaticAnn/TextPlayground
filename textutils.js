@@ -185,13 +185,48 @@ class TextSegment {
         this.text = text;
         this.glyphs = [];
         this.lines = [];
+    
         this.size = size;
         this.font = font;
+        this.shapeDirty = true;
+        this.layoutDirty = true;
     }
 
     setText(text)
     {
-        // dirty bits
+        if (text != this.srcText)
+        {
+            this.shapeDirty = true;
+            this.layoutDirty = true;
+            this.srcText = text;
+        }
+    }
+
+    setFont(font)
+    {
+        if (font != this.font)
+        {
+            this.shapeDirty = true;
+            this.layoutDirty = true;
+            this.font = font;
+        }
+    }
+
+    setSize(size)
+    {
+        if(this.size != size)
+        {
+            this.shapeDirty = true;
+            this.layoutDirty = true;
+            this.size = size;
+        }
+    }
+
+    shape()
+    {
+        // this use the generated matrics to generate a list of glyphs
+        // pre-calculates scaled bearing/kerning/x_advance(glyph rect width)
+        // this will be the final rectangle size that we draw on screen
     }
 };
 
